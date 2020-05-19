@@ -1,0 +1,7 @@
+﻿  main.cpp
+  Point.cpp
+  Vector.cpp
+  VectorLengthException.cpp
+  Generating Code...
+C:\Users\George Dimitrov\source\repos\Project19\Project19\Vector.cpp(69,32): warning C4805: '==': unsafe mix of type 'bool' and type 'double' in operation
+  Project19.vcxproj -> C:\Users\George Dimitrov\source\repos\Project19\Debug\Project19.exe
