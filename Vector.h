@@ -26,7 +26,7 @@ public:
 	Vector operator*(double) const;
 	double operator*(Vector*) const;
 	Vector operator^(Vector*) const;
+	double operator()(Vector& v1, Vector& v2) const;
 };
-
 
 #endif // !H_VECTOR_H

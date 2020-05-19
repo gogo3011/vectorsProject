@@ -134,3 +134,8 @@ Vector Vector::operator^(Vector* rhs) const
 {
 	return Vector('q', y*rhs->z - z*rhs->y, z * rhs->x - x * rhs->z, x * rhs->y - y * rhs->x);
 }
+
+double Vector::operator()(Vector& v1, Vector& v2) const
+{
+	return x*v1.y*v2.z + y*v1.z*v2.x + z*v1.x*v2.y - z*v1.y*v2.x - y*v1.x*v2.z - x*v1.z*v2.y;
+}
