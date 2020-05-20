@@ -14,7 +14,7 @@ Vector::Vector(char ch, Point& a, Point& b)
 	x = b.getX() - a.getX();
 	y = b.getY() - a.getY();
 	z = b.getZ() - a.getZ();
-	setLetter('u');
+	setLetter(ch);
 }
 
 Vector::Vector(const Vector& src)

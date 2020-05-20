@@ -62,7 +62,7 @@ double Point::getZ()
 	return z;
 }
 
-char Point::getLetter()
+char Point::getLetter() const
 {
 	return letter;
 }

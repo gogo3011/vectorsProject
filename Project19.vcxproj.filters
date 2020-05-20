@@ -33,6 +33,9 @@
     <ClCompile Include="VectorLengthException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Line.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Point.h">
@@ -46,6 +49,9 @@
     </ClInclude>
     <ClInclude Include="VectorLengthException.h">
       <Filter>Header Files\utils\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="Line.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
