@@ -87,7 +87,7 @@ bool Vector::isZero() const
 bool Vector::isParallelTo(Vector* comp) const
 {
 	if (comp->length() == 0 || this->length() == 0)
-		throw new VectorLengthException;
+		throw VectorLengthException();
 	double xRatio = x / comp->x;
 	double yRatio = y / comp->y;
 	double zRatio = z / comp->z;
@@ -100,7 +100,7 @@ bool Vector::isParallelTo(Vector* comp) const
 bool Vector::isPerpendicularTo(Vector* comp) const
 {
 	if (comp->isZero() || this->isZero())
-		throw new VectorLengthException;
+		throw VectorLengthException();
 	double xTemp = x * comp->x;
 	double yTemp = y * comp->y;
 	double zTemp = z * comp->z;

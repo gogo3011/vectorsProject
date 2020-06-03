@@ -39,6 +39,11 @@ bool Point::operator==(Point& comp)
 	return true;
 }
 
+bool Point::operator!=(Point& comp)
+{
+	return !(*this == comp);
+}
+
 void Point::print()
 {
 	std::cout << "Point " << letter << '\n'

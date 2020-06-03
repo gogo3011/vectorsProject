@@ -29,9 +29,56 @@ Vector Line::getNormalVector()
 	return Vector('n',x2, y2, z2);
 }
 
- //fix implementation
+bool Line::operator+(Point& comp)
+{
+	// TODO implement
+	return false;
+}
+
+bool Line::operator||(Line& comp)
+{
+	if (x != comp.x) {
+		return false;
+	}
+	if (y != comp.y) {
+		return false;
+	}
+	if (z != comp.z) {
+		return false;
+	}
+	return true;
+}
+
+bool Line::operator==(Line& comp)
+{
+	if (firstPoint != comp.firstPoint) {
+		return false;
+	}
+	if (secondPoint != comp.secondPoint) {
+		return false;
+	}
+	return true;
+}
+
+bool Line::operator!=(Line& comp)
+{
+	return !(*this||comp);
+}
+
+bool Line::operator|(Line& comp)
+{
+	if (getAngleDegrees(comp) == 90)
+		return true;
+	return false;
+}
+
 double Line::getAngle(Line& comp)
 {
-	double a = this->operator*(&comp) / this->length() * comp.length();
+	double a = acos(*this*(&comp) / this->length() * comp.length());
 	return a;
+}
+
+double Line::getAngleDegrees(Line& comp)
+{
+	return getAngle(comp)* 180 / M_PI;
 }

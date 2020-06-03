@@ -10,6 +10,7 @@ public:
 	Point(Point&);
 	Point& operator=(Point&);
 	bool operator==(Point&);
+	bool operator!=(Point&);
 	virtual void print();
 	double getX();
 	double getY();
