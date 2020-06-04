@@ -8,7 +8,7 @@ Point::Point(char ch, double x, double y, double z):letter(ch), x(x), y(y), z(z)
 {
 }
 
-Point::Point(Point& src)
+Point::Point(const Point& src)
 {
 	letter = src.letter;
 	x = src.x;
@@ -16,7 +16,7 @@ Point::Point(Point& src)
 	z = src.z;
 }
 
-Point& Point::operator=(Point& src)
+Point& Point::operator=(const Point& src)
 {
 	letter = src.letter;
 	x = src.x;
@@ -42,6 +42,12 @@ bool Point::operator==(Point& comp)
 bool Point::operator!=(Point& comp)
 {
 	return !(*this == comp);
+}
+
+//finds distance between two points
+double Point::operator+(Point& rhs)
+{
+	return sqrt(pow(x-rhs.x, 2)+pow(y-rhs.y, 2)+pow(z-rhs.z,2));
 }
 
 void Point::print()

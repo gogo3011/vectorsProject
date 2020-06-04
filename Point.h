@@ -7,10 +7,12 @@ class Point : public Element {
 public:
 	Point();
 	Point(char, double, double, double);
-	Point(Point&);
-	Point& operator=(Point&);
+	Point(const Point&);
+	Point& operator=(const Point&);
 	bool operator==(Point&);
 	bool operator!=(Point&);
+	//finds distance between two points
+	double operator+(Point&);
 	virtual void print();
 	double getX();
 	double getY();

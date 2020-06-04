@@ -9,6 +9,7 @@ public:
 	Line();
 	Line(Point&, Point&, char ch = 'u');
 	Line(Vector&, Point&);
+	Line(const Line&);
 	Vector getDirectionalVector();
 	Vector getNormalVector();
 	bool operator+(Point&);
@@ -18,6 +19,8 @@ public:
 	bool operator|(Line&);
 	double getAngle(Line&);
 	double getAngleDegrees(Line&);
+	Point& getFirstPoint();
+	Point& getSecondPoint();
 
 private:
 	Point firstPoint;

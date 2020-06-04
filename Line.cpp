@@ -17,6 +17,12 @@ Line::Line(Vector& v, Point& point):Vector(v)
 	secondPoint = point;
 }
 
+Line::Line(const Line& src):Vector(src)
+{
+	firstPoint = src.firstPoint;
+	secondPoint = src.secondPoint;
+}
+
 Vector Line::getDirectionalVector()
 {
 	return Vector('u', x, y, z);
@@ -81,4 +87,14 @@ double Line::getAngle(Line& comp)
 double Line::getAngleDegrees(Line& comp)
 {
 	return getAngle(comp)* 180 / M_PI;
+}
+
+Point& Line::getFirstPoint()
+{
+	return firstPoint;
+}
+
+Point& Line::getSecondPoint()
+{
+	return secondPoint;
 }

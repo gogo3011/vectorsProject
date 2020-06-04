@@ -19,6 +19,9 @@
     <Filter Include="Header Files\utils\exceptions">
       <UniqueIdentifier>{17135300-1bb9-4e2b-bf0c-e6458311b3bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\utils\enums">
+      <UniqueIdentifier>{ece488ec-e529-42a9-af1c-ce66068a1aaf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -34,6 +37,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Line.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Segment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EqualPointException.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -52,6 +64,21 @@
     </ClInclude>
     <ClInclude Include="Line.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Segment.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EqualPointException.h">
+      <Filter>Header Files\utils\exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeTrianglesEnum.h">
+      <Filter>Header Files\utils\enums</Filter>
+    </ClInclude>
+    <ClInclude Include="arrUtils.h">
+      <Filter>Header Files\utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
