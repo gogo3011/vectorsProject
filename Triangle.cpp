@@ -17,6 +17,30 @@ Triangle::~Triangle()
 {
 }
 
+bool Triangle::operator<(Point& cmp)
+{
+	Triangle firstPart(a, b, cmp),
+		secoundPart(b,c,cmp),
+		thirdPart(c,a,cmp);
+	double fullArea = firstPart.getArea() + secoundPart.getArea() + thirdPart.getArea();
+	if (this->getArea() - fullArea < TOLERANCE) {
+		return true;
+	}
+	return false;
+}
+
+bool Triangle::operator>(Point& cmp)
+{
+	if (*this < cmp)
+		return false;
+	Vector first('a', a, b), secound('b', a, c);
+	Vector normal(first ^ secound);
+	double independentTerm = -(normal.getX() * a.getX() + normal.getY() * a.getY() + normal.getZ() * a.getZ());
+	if (abs((normal.getX() * cmp.getX() + normal.getY() * cmp.getY() + normal.getZ() * cmp.getZ()) + independentTerm) < TOLERANCE)
+		return true;
+	return false;
+}
+
 bool Triangle::operator==(Point& cmp)
 {
 	if (segA == cmp)
@@ -73,4 +97,11 @@ Point Triangle::getCentroid()
 	return Point('M',getAverage<double, 3>(arrX),
 		getAverage<double, 3>(arrY),
 		getAverage<double, 3>(arrZ));
+}
+
+std::ostream& Triangle::ins(std::ostream& out) const
+{
+	return out << "A = " << a << '\n'
+		<< "B = " << b << '\n'
+		<< "C = " << c << '\n';
 }

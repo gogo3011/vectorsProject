@@ -125,17 +125,22 @@ Vector Vector::operator*(double r) const
 	return Vector('q', x*r, y*r, z*r);
 }
 
-double Vector::operator*(Vector* rhs) const
+double Vector::operator*(Vector& rhs) const
 {
-	return x*rhs->x + y * rhs->y + z * rhs->z;
+	return x*rhs.x + y * rhs.y + z * rhs.z;
 }
 
-Vector Vector::operator^(Vector* rhs) const
+Vector Vector::operator^(Vector& rhs) const
 {
-	return Vector('q', y*rhs->z - z*rhs->y, z * rhs->x - x * rhs->z, x * rhs->y - y * rhs->x);
+	return Vector('q', y*rhs.z - z*rhs.y, z * rhs.x - x * rhs.z, x * rhs.y - y * rhs.x);
 }
 
 double Vector::operator()(Vector& v1, Vector& v2) const
 {
 	return x*v1.y*v2.z + y*v1.z*v2.x + z*v1.x*v2.y - z*v1.y*v2.x - y*v1.x*v2.z - x*v1.z*v2.y;
+}
+
+std::ostream& Vector::ins(std::ostream& out) const
+{
+	return out << "[" << x << ", " << y << ", " << z << "] ";
 }

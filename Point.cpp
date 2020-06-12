@@ -82,3 +82,8 @@ void Point::setLetter(char ch)
 {
 	letter = ch;
 }
+
+std::ostream& Point::ins(std::ostream& out) const
+{
+	return out << "(" << x << ", " << y << ", " << z << ") ";
+}

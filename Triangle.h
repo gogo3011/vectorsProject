@@ -5,6 +5,8 @@
 #include "TypeTrianglesEnum.h"
 #include "EqualPointException.h"
 #include "ArrUtils.h"
+#include "Globals.h"
+#include <ostream>
 
 class Triangle: public Point
 {
@@ -12,12 +14,15 @@ public:
 	Triangle();
 	Triangle(Point&, Point&, Point&);
 	~Triangle();
+	bool operator<(Point&);
+	bool operator>(Point&);
 	bool operator==(Point&);
 	TypeTriangles getTypeByAngle();
 	TypeTriangles getTypeBySides();
 	double getArea();
 	double getParameter();
 	Point getCentroid();
+	virtual std::ostream& ins(std::ostream& out) const;
 private:
 	Point a, b, c;
 	Segment segA, segB, segC;

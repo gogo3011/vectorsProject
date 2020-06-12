@@ -28,11 +28,12 @@ Vector Line::getDirectionalVector()
 	return Vector('u', x, y, z);
 }
 
+
 Vector Line::getNormalVector()
 {
-	int x2 = 1, y2 = 1;
-	double z2 = (-x * x2 - y * y2) / z;
-	return Vector('n',x2, y2, z2);
+	return Vector('n', firstPoint.getX() - secondPoint.getX(),
+		firstPoint.getY() - secondPoint.getY(),
+		firstPoint.getZ() - secondPoint.getZ());
 }
 
 bool Line::operator+(Point& comp)
@@ -80,8 +81,8 @@ bool Line::operator|(Line& comp)
 
 double Line::getAngle(Line& comp)
 {
-	double a = acos(*this*(&comp) / this->length() * comp.length());
-	return a;
+	double a = (*this*(comp)) / (this->length() * comp.length());
+	return acos(abs(a));
 }
 
 double Line::getAngleDegrees(Line& comp)
@@ -97,4 +98,10 @@ Point& Line::getFirstPoint()
 Point& Line::getSecondPoint()
 {
 	return secondPoint;
+}
+
+std::ostream& Line::ins(std::ostream& out) const
+{
+	return out << "First Point: " << firstPoint << '\n'
+		<< "Second Point: " << secondPoint << '\n';
 }

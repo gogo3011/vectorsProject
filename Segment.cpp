@@ -32,7 +32,7 @@ bool Segment::operator==(Point& comp)
 	double distanceToB = b + comp;
 	double difference = (a + b) - (distanceToA + distanceToB);
 	//precision
-	if (difference < 0.00001 && difference > -0.00001) {
+	if (difference < TOLERANCE && difference > -TOLERANCE) {
 		return true;
 	}
 	return false;
@@ -48,4 +48,12 @@ Point Segment::getMiddlePoint()
 	Point a = getFirstPoint();
 	Point b = getSecondPoint();
 	return Point('M', (a.getX() + b.getX())/2, (a.getY() + b.getY()) / 2, (a.getZ() + b.getZ()) / 2);
+}
+
+std::ostream& Segment::ins(std::ostream& out) const
+{
+	return Line::ins(out)
+		<< "ParamX: " << paramX << "\n"
+		<< "ParamY: " << paramY << "\n"
+		<< "ParamZ: " << paramZ << "\n";
 }

@@ -15,7 +15,7 @@ T getMax(T arr[]) {
 template <typename T, unsigned SZ>
 unsigned getEquCnt(T arr[]) {
 	unsigned cnt = 0;
-	for (size_t i = 0; i < SZ - 1; i++)
+	for (size_t i = 0; i < SZ - 1 - cnt; i++)
 	{
 		for (size_t j = i + 1; j < SZ; j++)
 		{

@@ -19,6 +19,7 @@ public:
 	double getZ();
 	char getLetter() const;
 	void setLetter(char ch);
+	virtual std::ostream& ins(std::ostream& out) const;
 private:
 	// name of point
 	char letter;

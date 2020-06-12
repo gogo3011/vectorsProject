@@ -123,9 +123,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Element.cpp" />
     <ClCompile Include="EqualPointException.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Segment.cpp" />
     <ClCompile Include="Triangle.cpp" />
@@ -136,7 +138,9 @@
     <ClInclude Include="arrUtils.h" />
     <ClInclude Include="Element.h" />
     <ClInclude Include="EqualPointException.h" />
+    <ClInclude Include="Globals.h" />
     <ClInclude Include="Line.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Segment.h" />
     <ClInclude Include="Triangle.h" />

@@ -2,6 +2,7 @@
 #define H_LINE_H
 #include "Point.h"
 #include "Vector.h"
+#include <ostream>
 # define M_PI           3.14159265358979323846
 
 class Line : public Vector {
@@ -21,7 +22,7 @@ public:
 	double getAngleDegrees(Line&);
 	Point& getFirstPoint();
 	Point& getSecondPoint();
-
+	virtual std::ostream& ins(std::ostream& out) const;
 private:
 	Point firstPoint;
 	Point secondPoint;
