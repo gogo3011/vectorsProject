@@ -3,7 +3,6 @@
 int menu()
 {
 	unsigned choice;
-	// Element** elements;
 	char againOperationQ[] = "Issue a new operation?";
 	char newObjQ[] = "Create a new object?";
 	do
