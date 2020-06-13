@@ -53,7 +53,11 @@ Point Segment::getMiddlePoint()
 std::ostream& Segment::ins(std::ostream& out) const
 {
 	return Line::ins(out)
+		<< "====================\n"
+		<< "     Segment     \n"
+		<< "--------------------\n"
 		<< "ParamX: " << paramX << "\n"
 		<< "ParamY: " << paramY << "\n"
-		<< "ParamZ: " << paramZ << "\n";
+		<< "ParamZ: " << paramZ << "\n"
+		<< "====================\n";
 }

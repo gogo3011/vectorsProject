@@ -67,7 +67,7 @@ TypeTriangles Triangle::getTypeByAngle()
 	}
 	else
 	{
-		return TypeTriangles(isosceles);
+		return TypeTriangles(acute);
 	}
 }
 
@@ -101,7 +101,11 @@ Point Triangle::getCentroid()
 
 std::ostream& Triangle::ins(std::ostream& out) const
 {
-	return out << "A = " << a << '\n'
+	return out << "====================\n"
+		<<"     Triangle     \n"
+		<<"--------------------\n"
+		<< "A = " << a << '\n'
 		<< "B = " << b << '\n'
-		<< "C = " << c << '\n';
+		<< "C = " << c << '\n'
+		<< "====================\n";
 }

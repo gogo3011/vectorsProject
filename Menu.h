@@ -20,6 +20,8 @@ void vectorOperations(Vector&);
 void lineOperations(Line&);
 void segmentOperations(Segment&);
 void triangleOperations(Triangle&);
+void printAllElements();
+void deleteAllElements();
 bool askUser(const char*);
 
 #endif

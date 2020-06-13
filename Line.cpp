@@ -102,6 +102,10 @@ Point& Line::getSecondPoint()
 
 std::ostream& Line::ins(std::ostream& out) const
 {
-	return out << "First Point: " << firstPoint << '\n'
-		<< "Second Point: " << secondPoint << '\n';
+	return out << "====================\n"
+		<< "        Line     \n"
+		<< "--------------------\n"
+		<< "First Point: " << firstPoint << '\n'
+		<< "Second Point: " << secondPoint << '\n'
+		<< "====================\n";
 }

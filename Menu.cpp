@@ -1,5 +1,8 @@
 #include "Menu.h"
 
+Element* objArr[100];
+unsigned objCnt = 0;
+
 int menu()
 {
 	unsigned choice;
@@ -12,7 +15,8 @@ int menu()
 		<< "2. Vector\n"
 		<< "3. Line\n"
 		<< "4. Segment\n"
-		<< "5. Triangle\n";
+		<< "5. Triangle\n"
+		<< "6. Print all created elements\n";
 	std::cin >> choice;
 	switch (choice)
 	{
@@ -61,11 +65,17 @@ int menu()
 			} while (askUser(againOperationQ));
 			break;
 		}
+		case 6:
+		{
+			printAllElements();
+			break;
+		}
 	default:
 		std::cout << "Invalid menu option..." << '\n';
 		break;
 	}
 	} while (askUser(newObjQ));
+	deleteAllElements();
 	return 0;
 }
 
@@ -82,7 +92,9 @@ Point createPoint()
 	std::cout << "Please, enter z coordinate: \n";
 	std::cin.ignore();
 	std::cin >> z;
-	return Point('u', x, y, z);
+	Point obj('u', x, y, z);
+	objArr[objCnt++] = new Point(obj);
+	return obj;
 }
 
 void pointOperations(Point& curr) {
@@ -121,6 +133,8 @@ Vector createVector()
 	std::cout << "Please, enter z coordinate: \n";
 	std::cin.ignore();
 	std::cin >> z;
+	Vector obj(ch, x, y, z);
+	objArr[objCnt++] = new Vector(obj);
 	return Vector(ch, x, y, z);
 }
 
@@ -213,7 +227,9 @@ Line createLine()
 {
 	std::cout << "Creating Line... \n";
 	Point first(createPoint()), secound(createPoint());
-	return Line(first, secound);
+	Line obj(first, secound);
+	objArr[objCnt++] = new Line(obj);
+	return obj;
 }
 
 void lineOperations(Line& curr)
@@ -286,7 +302,9 @@ Segment createSegment()
 {
 	std::cout << "Creating Segment..." << '\n';
 	Point first(createPoint()), secound(createPoint());
-	return Segment(first, secound);
+	Segment obj(first, secound);
+	objArr[objCnt++] = new Segment(obj);
+	return obj;
 }
 
 void segmentOperations(Segment& curr)
@@ -329,6 +347,7 @@ Triangle createTriangle()
 		std::cout << "Creating Triangle...\n";
 		Point p1(createPoint()), p2(createPoint()), p3(createPoint());
 		Triangle t(p1, p2, p3);
+		objArr[objCnt++] = new Triangle(t);
 		return t;
 	}
 	catch (const EqualPointException& ex)
@@ -422,6 +441,25 @@ void triangleOperations(Triangle& curr)
 	}
 	default:
 		break;
+	}
+}
+
+void printAllElements()
+{
+	for (size_t i = 0; i < objCnt; i++)
+	{
+		std::cout << *objArr[i] << '\n';
+	}
+}
+
+void deleteAllElements()
+{
+	for (size_t i = 0; i < objCnt; i++)
+	{
+		if (objArr[i] != nullptr){
+			delete objArr[i];
+			objArr[i] = nullptr;
+		}
 	}
 }
 

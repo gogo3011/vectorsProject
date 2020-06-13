@@ -142,5 +142,9 @@ double Vector::operator()(Vector& v1, Vector& v2) const
 
 std::ostream& Vector::ins(std::ostream& out) const
 {
-	return out << "[" << x << ", " << y << ", " << z << "] ";
+	return out << "====================\n"
+		<< "     Vector     \n"
+		<< "--------------------\n"
+		<< "[" << x << ", " << y << ", " << z << "] \n"
+		<< "====================\n";
 }
