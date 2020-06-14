@@ -20,6 +20,7 @@ public:
 	char getLetter() const;
 	void setLetter(char ch);
 	virtual std::ostream& ins(std::ostream& out) const;
+	virtual std::ofstream& ins(std::ofstream& fstream) const;
 private:
 	// name of point
 	char letter;

@@ -148,3 +148,9 @@ std::ostream& Vector::ins(std::ostream& out) const
 		<< "[" << x << ", " << y << ", " << z << "] \n"
 		<< "====================\n";
 }
+
+std::ofstream& Vector::ins(std::ofstream& fstream) const
+{
+	fstream << x << " " << y << " " << z;
+	return fstream;
+}

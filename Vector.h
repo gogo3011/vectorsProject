@@ -3,6 +3,7 @@
 #include "Point.h"
 #include "VectorLengthException.h"
 #include <ostream>
+#include <fstream>
 
 class Vector : public Point {
 public:
@@ -29,6 +30,7 @@ public:
 	Vector operator^(Vector&) const;
 	double operator()(Vector& v1, Vector& v2) const;
 	virtual std::ostream& ins(std::ostream& out) const;
+	virtual std::ofstream& ins(std::ofstream& fstream) const;
 };
 
 #endif // !H_VECTOR_H

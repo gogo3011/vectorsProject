@@ -23,6 +23,7 @@ public:
 	double getParameter();
 	Point getCentroid();
 	virtual std::ostream& ins(std::ostream& out) const;
+	virtual std::ofstream& ins(std::ofstream& fstream) const;
 private:
 	Point a, b, c;
 	Segment segA, segB, segC;

@@ -87,3 +87,9 @@ std::ostream& Point::ins(std::ostream& out) const
 {
 	return out << "(" << x << ", " << y << ", " << z << ") ";
 }
+
+std::ofstream& Point::ins(std::ofstream& fstream) const
+{
+	fstream << x << " " << y << " " << z << " ";
+	return fstream;
+}

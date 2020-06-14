@@ -109,3 +109,11 @@ std::ostream& Triangle::ins(std::ostream& out) const
 		<< "C = " << c << '\n'
 		<< "====================\n";
 }
+
+std::ofstream& Triangle::ins(std::ofstream& fstream) const
+{
+	fstream << a << '\n';
+	fstream << b << '\n';
+	fstream << c;
+	return fstream;
+}

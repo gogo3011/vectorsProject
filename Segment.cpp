@@ -61,3 +61,9 @@ std::ostream& Segment::ins(std::ostream& out) const
 		<< "ParamZ: " << paramZ << "\n"
 		<< "====================\n";
 }
+
+std::ofstream& Segment::ins(std::ofstream& fstream) const
+{
+	fstream << paramX << " " << paramY << " " << paramZ;
+	return fstream;
+}

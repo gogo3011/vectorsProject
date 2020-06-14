@@ -109,3 +109,10 @@ std::ostream& Line::ins(std::ostream& out) const
 		<< "Second Point: " << secondPoint << '\n'
 		<< "====================\n";
 }
+
+std::ofstream& Line::ins(std::ofstream& fstream) const
+{
+	fstream << firstPoint << '\n'
+		<< secondPoint;
+	return fstream;
+}

@@ -10,17 +10,17 @@ int menu()
 	char newObjQ[] = "Create a new object?";
 	do
 	{
-	std::cout << "Please, select a geometric object: \n"
-		<< "1. Point\n"
-		<< "2. Vector\n"
-		<< "3. Line\n"
-		<< "4. Segment\n"
-		<< "5. Triangle\n"
-		<< "6. Tetrahedron\n"
-		<< "7. Print all created elements\n";
-	std::cin >> choice;
-	switch (choice)
-	{
+		std::cout << "Please, select a geometric object: \n"
+			<< "1. Point\n"
+			<< "2. Vector\n"
+			<< "3. Line\n"
+			<< "4. Segment\n"
+			<< "5. Triangle\n"
+			<< "6. Tetrahedron\n"
+			<< "7. Print all created elements\n";
+		std::cin >> choice;
+		switch (choice)
+		{
 		case 1:
 		{
 			Point p(createPoint());
@@ -79,16 +79,16 @@ int menu()
 			printAllElements();
 			break;
 		}
-	default:
-		std::cout << "Invalid menu option..." << '\n';
-		break;
-	}
-	} while (askUser(newObjQ));
+		default:
+			std::cout << "Invalid menu option..." << '\n';
+			break;
+		}
+		} while (askUser(newObjQ));
 	deleteAllElements();
 	return 0;
 }
 
-Point createPoint()
+Point createPoint(bool writeId)
 {
 	double x, y, z;
 	std::cout << "Please, enter x coordinate: \n";
@@ -102,6 +102,10 @@ Point createPoint()
 	std::cin >> z;
 	Point obj('u', x, y, z);
 	objArr[objCnt++] = new Point(obj);
+	if (writeId)
+		writeObjToFile(&obj, 1);
+	else
+		writeObjToFile(&obj);
 	return obj;
 }
 
@@ -111,6 +115,8 @@ void pointOperations(Point& curr) {
 		<< "1. Print object\n";
 	std::cin.ignore();
 	std::cin >> opt;
+	if (opt == 1) {
+		writeOpToFile(opt);
 	switch (opt)
 	{
 	case 1: 
@@ -122,16 +128,13 @@ void pointOperations(Point& curr) {
 		std::cout << "Invalid input";
 		break;
 	}
+	}
 }
 
 
-Vector createVector()
+Vector createVector(bool writeId)
 {
-	char ch;
 	double x, y, z;
-	std::cout << "Please, enter a letter for your Vector: \n";
-	std::cin.ignore();
-	std::cin >> ch;
 	std::cout << "Please, enter x coordinate: \n";
 	std::cin.ignore();
 	std::cin >> x;
@@ -141,9 +144,14 @@ Vector createVector()
 	std::cout << "Please, enter z coordinate: \n";
 	std::cin.ignore();
 	std::cin >> z;
-	Vector obj(ch, x, y, z);
+	Vector obj('u', x, y, z);
+	writeObjToFile(&obj, 2);
 	objArr[objCnt++] = new Vector(obj);
-	return Vector(ch, x, y, z);
+	if (writeId)
+		writeObjToFile(&obj, 2);
+	else
+		writeObjToFile(&obj);
+	return obj;
 }
 
 void vectorOperations(Vector& curr)
@@ -162,6 +170,8 @@ void vectorOperations(Vector& curr)
 		<< "10. Mixed multiplication w. 2 new vectors \n";
 	std::cin.ignore();
 	std::cin >> opt;
+	if(opt <= 10  && opt > 0){
+		writeOpToFile(opt);
 	switch (opt)
 	{
 	case 1:
@@ -181,19 +191,19 @@ void vectorOperations(Vector& curr)
 	}
 	case 4:
 	{
-		Vector newV(createVector());
+		Vector newV(createVector(false));
 		std::cout << (std::boolalpha) << curr.isParallelTo(&newV) << '\n';
 		break;
 	}
 	case 5:
 	{
-		Vector newV(createVector());
+		Vector newV(createVector(false));
 		std::cout << (std::boolalpha) << curr.isPerpendicularTo(&newV) << '\n';
 		break;
 	}
 	case 6:
 	{
-		Vector newV(createVector());
+		Vector newV(createVector(false));
 		std::cout << (std::boolalpha) << curr + &newV << '\n';
 		break;
 	}
@@ -208,35 +218,40 @@ void vectorOperations(Vector& curr)
 	}
 	case 8:
 	{
-		Vector newV(createVector());
+		Vector newV(createVector(false));
 		std::cout << curr * newV << '\n';
 		break;
 	}
 	case 9:
 	{
-		Vector newV(createVector());
+		Vector newV(createVector(false));
 		std::cout << curr.operator^(newV) << '\n';
 		break;
 	}
 	case 10:
 	{
-		Vector newV1(createVector());
-		Vector newV2(createVector());
+		Vector newV1(createVector(false));
+		Vector newV2(createVector(false));
 		std::cout << curr(newV1, newV2) << '\n';
 		break;
 	}
 	default:
 		break;
 	}
+	}
 }
 
 
-Line createLine()
+Line createLine(bool writeId)
 {
 	std::cout << "Creating Line... \n";
 	Point first(createPoint()), secound(createPoint());
 	Line obj(first, secound);
 	objArr[objCnt++] = new Line(obj);
+	if (writeId)
+		writeObjToFile(&obj, 3);
+	else
+		writeObjToFile(&obj);
 	return obj;
 }
 
@@ -254,6 +269,8 @@ void lineOperations(Line& curr)
 		<< "8. Check if Line is perpendicular w. new Line \n";
 	std::cin.ignore();
 	std::cin >> opt;
+	if (opt > 0 && opt <= 8) {
+		writeOpToFile(opt);
 	switch (opt)
 	{
 	case 1:
@@ -268,50 +285,55 @@ void lineOperations(Line& curr)
 	}
 	case 3:
 	{
-		Line newl(createLine());
+		Line newl(createLine(false));
 		std::cout << curr.getAngleDegrees(newl) << '\n';
 		break;
 	}
 	case 4:
 	{
-		Point newp(createPoint());
+		Point newp(createPoint(false));
 		std::cout << (std::boolalpha) << curr + newp << '\n';
 	}
 	case 5:
 	{
-		Line newl(createLine());
+		Line newl(createLine(false));
 		std::cout << (std::boolalpha) << curr.operator||(newl) << '\n';
 		break;
 	}
 	case 6:
 	{
-		Line newl(createLine());
+		Line newl(createLine(false));
 		std::cout << (std::boolalpha) << curr.operator==(newl) << '\n';
 		break;
 	}
 	case 7:
 	{
-		Line newl(createLine());
+		Line newl(createLine(false));
 		std::cout << (std::boolalpha) << curr.operator!=(newl) << '\n';
 		break;
 	}
 	case 8:
 	{
-		Line newl(createLine());
+		Line newl(createLine(false));
 		std::cout << (std::boolalpha) << curr.operator|(newl) << '\n';
 		break;
 	}
 	default:
 		break;
 	}
+	}
 }
 
-Segment createSegment()
+Segment createSegment(bool writeId)
 {
 	std::cout << "Creating Segment..." << '\n';
 	Point first(createPoint()), secound(createPoint());
 	Segment obj(first, secound);
 	objArr[objCnt++] = new Segment(obj);
+	if (writeId)
+		writeObjToFile(&obj, 4);
+	else
+		writeObjToFile(&obj);
 	return obj;
 }
 
@@ -324,6 +346,8 @@ void segmentOperations(Segment& curr)
 		<< "3. Check if Point lies on Segment\n";
 	std::cin.ignore();
 	std::cin >> opt;
+	if (opt > 0 && opt <= 3) {
+		writeOpToFile(opt);
 	switch (opt)
 	{
 	case 1: 
@@ -339,16 +363,17 @@ void segmentOperations(Segment& curr)
 	}
 	case 3:
 	{
-		Point p(createPoint());
+		Point p(createPoint(false));
 		std::cout << (std::boolalpha) << curr.operator==(p) << '\n';
 		break;
 	}
 	default:
 		break;
 	}
+	}
 }
 
-Triangle createTriangle()
+Triangle createTriangle(bool writeId)
 {
 	bool valid = false;
 	do
@@ -359,6 +384,10 @@ Triangle createTriangle()
 			Point p1(createPoint()), p2(createPoint()), p3(createPoint());
 			Triangle t(p1, p2, p3);
 			objArr[objCnt++] = new Triangle(t);
+			if (writeId)
+				writeObjToFile(&t, 5);
+			else
+				writeObjToFile(&t);
 			valid = true;
 			return t;
 		}
@@ -384,6 +413,8 @@ void triangleOperations(Triangle& curr)
 		<< "7. Check if Point lies on a Segment of Triangle \n";
 	std::cin.ignore();
 	std::cin >> opt;
+	if (opt > 0 && opt <= 7) {
+		writeOpToFile(opt);
 	switch (opt)
 	{
 	case 1:
@@ -438,29 +469,30 @@ void triangleOperations(Triangle& curr)
 	}
 	case 5:
 	{
-		Point p(createPoint());
+		Point p(createPoint(false));
 		std::cout << (std::boolalpha) << curr.operator<(p) << '\n';
 		break;
 	}
 	case 6:
 	{
-		Point p(createPoint());
+		Point p(createPoint(false));
 		std::cout << (std::boolalpha) << curr.operator>(p) << '\n';
 		break;
 	}
 	case 7:
 	{
-		Point p(createPoint());
+		Point p(createPoint(false));
 		std::cout << (std::boolalpha) << curr.operator==(p) << '\n';
 		break;
 	}
 	default:
 		break;
 	}
+	}
 }
 
 
-Tetrahedron createTetrahedron()
+Tetrahedron createTetrahedron(bool writeId)
 {
 	bool valid = false;
 	do
@@ -472,6 +504,10 @@ Tetrahedron createTetrahedron()
 			Tetrahedron t(p1, p2, p3, p4);
 			objArr[objCnt++] = new Tetrahedron(t);
 			valid = true;
+			if (writeId)
+				writeObjToFile(&t, 6);
+			else
+				writeObjToFile(&t);
 			return Tetrahedron();
 		}
 		catch (const EqualPointException & ex)
@@ -497,6 +533,8 @@ void tetrahedronOperations(Tetrahedron& curr)
 		<< "5. Check if point is on sides\n";
 	std::cin.ignore();
 	std::cin >> opt;
+	if (opt > 0 && opt <= 5) {
+		writeOpToFile(opt);
 	switch (opt)
 	{
 	case 1:
@@ -521,6 +559,32 @@ void tetrahedronOperations(Tetrahedron& curr)
 	}
 	default:
 		break;
+	}
+	}
+}
+
+void writeObjToFile(Element* curr)
+{
+	std::ofstream file("lastOp.txt", std::ios_base::app);
+	if (file.is_open()) {
+		file << *curr << '\n';
+	}
+}
+
+void writeObjToFile(Element* curr, int id)
+{
+	std::ofstream file("lastOp.txt");
+	if (file.is_open()) {
+		file << id << '\n';
+		file << *curr << '\n';
+	}
+}
+
+void writeOpToFile(unsigned opId)
+{
+	std::ofstream file("lastOp.txt", std::ios_base::app);
+	if (file.is_open()) {
+		file << opId << '\n';
 	}
 }
 

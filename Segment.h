@@ -3,6 +3,7 @@
 #include "Line.h"
 #include "Globals.h"
 #include <ostream>
+#include <fstream>
 
 class Segment : public Line
 {
@@ -15,6 +16,7 @@ public:
 	double getLength();
 	Point getMiddlePoint();
 	virtual std::ostream& ins(std::ostream& out) const;
+	virtual std::ofstream& ins(std::ofstream& fstream) const;
 private:
 	double paramX, paramY, paramZ;
 };

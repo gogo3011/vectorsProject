@@ -3,6 +3,7 @@
 #include "Point.h"
 #include "Vector.h"
 #include <ostream>
+#include <fstream>
 # define M_PI           3.14159265358979323846
 
 class Line : public Vector {
@@ -23,6 +24,7 @@ public:
 	Point& getFirstPoint();
 	Point& getSecondPoint();
 	virtual std::ostream& ins(std::ostream& out) const;
+	virtual std::ofstream& ins(std::ofstream& fstream) const;
 private:
 	Point firstPoint;
 	Point secondPoint;

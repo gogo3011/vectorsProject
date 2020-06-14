@@ -107,3 +107,12 @@ std::ostream& Tetrahedron::ins(std::ostream& out) const
 		<< "D = " << p4 << '\n'
 		<< "====================\n";
 }
+
+std::ofstream& Tetrahedron::ins(std::ofstream& fstream) const
+{
+	fstream << p1 << '\n';
+	fstream << p2 << '\n';
+	fstream << p3 << '\n';
+	fstream << p4;
+	return fstream;
+}
