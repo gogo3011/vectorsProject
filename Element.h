@@ -4,7 +4,6 @@
 
 class Element {
 public:
-	virtual void print() = 0;
 	virtual std::ostream& ins(std::ostream& out) const = 0;
 };
 

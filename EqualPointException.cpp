@@ -2,5 +2,5 @@
 
 const char* EqualPointException::what() const throw()
 {
-	return "The points in the triangle are equal";
+	return "The points in the figure are equal";
 }

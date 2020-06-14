@@ -16,7 +16,8 @@ int menu()
 		<< "3. Line\n"
 		<< "4. Segment\n"
 		<< "5. Triangle\n"
-		<< "6. Print all created elements\n";
+		<< "6. Tetrahedron\n"
+		<< "7. Print all created elements\n";
 	std::cin >> choice;
 	switch (choice)
 	{
@@ -67,6 +68,14 @@ int menu()
 		}
 		case 6:
 		{
+			Tetrahedron t(createTetrahedron());
+			do
+			{
+				tetrahedronOperations(t);
+			} while (askUser(againOperationQ));
+		}
+		case 7:
+		{
 			printAllElements();
 			break;
 		}
@@ -81,7 +90,6 @@ int menu()
 
 Point createPoint()
 {
-	char ch;
 	double x, y, z;
 	std::cout << "Please, enter x coordinate: \n";
 	std::cin.ignore();
@@ -342,19 +350,26 @@ void segmentOperations(Segment& curr)
 
 Triangle createTriangle()
 {
-	try
+	bool valid = false;
+	do
 	{
-		std::cout << "Creating Triangle...\n";
-		Point p1(createPoint()), p2(createPoint()), p3(createPoint());
-		Triangle t(p1, p2, p3);
-		objArr[objCnt++] = new Triangle(t);
-		return t;
-	}
-	catch (const EqualPointException& ex)
-	{
-		std::cout << ex.what();
-	}
+		try
+		{
+			std::cout << "Creating Triangle...\n";
+			Point p1(createPoint()), p2(createPoint()), p3(createPoint());
+			Triangle t(p1, p2, p3);
+			objArr[objCnt++] = new Triangle(t);
+			valid = true;
+			return t;
+		}
+		catch (const EqualPointException& ex)
+		{
+			std::cout << ex.what() << '\n';
+			valid = false;
+		}
+	} while (!valid);
 }
+
 
 void triangleOperations(Triangle& curr)
 {
@@ -437,6 +452,71 @@ void triangleOperations(Triangle& curr)
 	{
 		Point p(createPoint());
 		std::cout << (std::boolalpha) << curr.operator==(p) << '\n';
+		break;
+	}
+	default:
+		break;
+	}
+}
+
+
+Tetrahedron createTetrahedron()
+{
+	bool valid = false;
+	do
+	{
+		try
+		{
+			std::cout << "Creating Tetrahedron...\n";
+			Point p1(createPoint()), p2(createPoint()), p3(createPoint()), p4(createPoint());
+			Tetrahedron t(p1, p2, p3, p4);
+			objArr[objCnt++] = new Tetrahedron(t);
+			valid = true;
+			return Tetrahedron();
+		}
+		catch (const EqualPointException & ex)
+		{
+			std::cout << ex.what() << '\n';
+			valid = false;
+		}
+	} while (!valid);
+	Point p1(createPoint()), p2(createPoint()), p3(createPoint()), p4(createPoint());
+	Tetrahedron t(p1, p2, p3, p4);
+	objArr[objCnt++] = new Tetrahedron(t);
+	return Tetrahedron();
+}
+
+void tetrahedronOperations(Tetrahedron& curr)
+{
+	unsigned opt;
+	std::cout << "Avalable Tetrahedron operations: \n"
+		<< "1. Check if it's \'right\'\n"
+		<< "2. Check if it's ortogonal\n"
+		<< "3. Get surface area\n"
+		<< "4. Get volume\n"
+		<< "5. Check if point is on sides\n";
+	std::cin.ignore();
+	std::cin >> opt;
+	switch (opt)
+	{
+	case 1:
+	{
+		std::cout << (std::boolalpha) << curr.rightTetrahedron() << '\n';
+		break;
+	}
+	case 2:
+	{
+		std::cout << (std::boolalpha) << curr.ortogonalTetrahedon() << '\n';
+		break;
+	}
+	case 3:
+	{
+		std::cout << curr.localArea() << '\n';
+		break;
+	}
+	case 4:
+	{
+		std::cout << curr.volume() << '\n';
 		break;
 	}
 	default:
