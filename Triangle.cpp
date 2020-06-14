@@ -23,7 +23,7 @@ bool Triangle::operator<(Point& cmp)
 		secoundPart(b,c,cmp),
 		thirdPart(c,a,cmp);
 	double fullArea = firstPart.getArea() + secoundPart.getArea() + thirdPart.getArea();
-	if (this->getArea() - fullArea < TOLERANCE) {
+	if (abs(this->getArea() - fullArea) < TOLERANCE) {
 		return true;
 	}
 	return false;
