@@ -115,4 +115,5 @@ std::ofstream& Line::ins(std::ofstream& fstream) const
 	fstream << firstPoint << '\n';
 	fstream << secondPoint;
 	return fstream;
+		
 }
