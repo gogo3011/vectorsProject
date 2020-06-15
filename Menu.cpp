@@ -17,7 +17,8 @@ int menu()
 			<< "4. Segment\n"
 			<< "5. Triangle\n"
 			<< "6. Tetrahedron\n"
-			<< "7. Print all created elements\n";
+			<< "7. Print all created elements\n"
+			<< "8. Read your last operation from a file\n";
 		std::cin >> choice;
 		switch (choice)
 		{
@@ -79,6 +80,11 @@ int menu()
 			printAllElements();
 			break;
 		}
+		case 8:
+		{
+			readFromFile();
+			break;
+		}
 		default:
 			std::cout << "Invalid menu option..." << '\n';
 			break;
@@ -88,18 +94,15 @@ int menu()
 	return 0;
 }
 
-Point createPoint(bool writeId)
+Point createPoint(bool writeId, std::istream& in)
 {
 	double x, y, z;
 	std::cout << "Please, enter x coordinate: \n";
-	std::cin.ignore();
-	std::cin >> x;
+	in >> x;
 	std::cout << "Please, enter y coordinate: \n";
-	std::cin.ignore();
-	std::cin >> y;
+	in >> y;
 	std::cout << "Please, enter z coordinate: \n";
-	std::cin.ignore();
-	std::cin >> z;
+	in >> z;
 	Point obj('u', x, y, z);
 	objArr[objCnt++] = new Point(obj);
 	if (writeId)
@@ -109,12 +112,11 @@ Point createPoint(bool writeId)
 	return obj;
 }
 
-void pointOperations(Point& curr) {
+void pointOperations(Point& curr, std::istream& in) {
 	unsigned opt;
 	std::cout << "Avalable Point operations: \n"
 		<< "1. Print object\n";
-	std::cin.ignore();
-	std::cin >> opt;
+	in >> opt;
 	if (opt == 1) {
 		writeOpToFile(opt);
 	switch (opt)
@@ -132,18 +134,15 @@ void pointOperations(Point& curr) {
 }
 
 
-Vector createVector(bool writeId)
+Vector createVector(bool writeId, std::istream& in)
 {
 	double x, y, z;
 	std::cout << "Please, enter x coordinate: \n";
-	std::cin.ignore();
-	std::cin >> x;
+	in >> x;
 	std::cout << "Please, enter y coordinate: \n";
-	std::cin.ignore();
-	std::cin >> y;
+	in >> y;
 	std::cout << "Please, enter z coordinate: \n";
-	std::cin.ignore();
-	std::cin >> z;
+	in >> z;
 	Vector obj('u', x, y, z);
 	writeObjToFile(&obj, 2);
 	objArr[objCnt++] = new Vector(obj);
@@ -154,7 +153,7 @@ Vector createVector(bool writeId)
 	return obj;
 }
 
-void vectorOperations(Vector& curr)
+void vectorOperations(Vector& curr, std::istream& in)
 {
 	unsigned opt;
 	std::cout << "Avalable Vector operations: \n"
@@ -168,8 +167,7 @@ void vectorOperations(Vector& curr)
 		<< "8. Scalar multiplication w. new vector \n"
 		<< "9. Vector multiplication w. new vector \n"
 		<< "10. Mixed multiplication w. 2 new vectors \n";
-	std::cin.ignore();
-	std::cin >> opt;
+	in >> opt;
 	if(opt <= 10  && opt > 0){
 		writeOpToFile(opt);
 	switch (opt)
@@ -191,19 +189,19 @@ void vectorOperations(Vector& curr)
 	}
 	case 4:
 	{
-		Vector newV(createVector(false));
+		Vector newV(createVector(false, in));
 		std::cout << (std::boolalpha) << curr.isParallelTo(&newV) << '\n';
 		break;
 	}
 	case 5:
 	{
-		Vector newV(createVector(false));
+		Vector newV(createVector(false, in));
 		std::cout << (std::boolalpha) << curr.isPerpendicularTo(&newV) << '\n';
 		break;
 	}
 	case 6:
 	{
-		Vector newV(createVector(false));
+		Vector newV(createVector(false, in));
 		std::cout << (std::boolalpha) << curr + &newV << '\n';
 		break;
 	}
@@ -218,20 +216,20 @@ void vectorOperations(Vector& curr)
 	}
 	case 8:
 	{
-		Vector newV(createVector(false));
+		Vector newV(createVector(false, in));
 		std::cout << curr * newV << '\n';
 		break;
 	}
 	case 9:
 	{
-		Vector newV(createVector(false));
+		Vector newV(createVector(false, in));
 		std::cout << curr.operator^(newV) << '\n';
 		break;
 	}
 	case 10:
 	{
-		Vector newV1(createVector(false));
-		Vector newV2(createVector(false));
+		Vector newV1(createVector(false, in));
+		Vector newV2(createVector(false, in));
 		std::cout << curr(newV1, newV2) << '\n';
 		break;
 	}
@@ -242,10 +240,10 @@ void vectorOperations(Vector& curr)
 }
 
 
-Line createLine(bool writeId)
+Line createLine(bool writeId, std::istream& in)
 {
 	std::cout << "Creating Line... \n";
-	Point first(createPoint()), secound(createPoint());
+	Point first(createPoint(writeId, in)), secound(createPoint(writeId, in));
 	Line obj(first, secound);
 	objArr[objCnt++] = new Line(obj);
 	if (writeId)
@@ -255,7 +253,7 @@ Line createLine(bool writeId)
 	return obj;
 }
 
-void lineOperations(Line& curr)
+void lineOperations(Line& curr, std::istream& in)
 {
 	unsigned opt;
 	std::cout << "Avalable Line operations: \n"
@@ -267,8 +265,7 @@ void lineOperations(Line& curr)
 		<< "6. Check if Line equals new Line\n"
 		<< "7. Check if Line intercepts w. new Line \n"
 		<< "8. Check if Line is perpendicular w. new Line \n";
-	std::cin.ignore();
-	std::cin >> opt;
+	in >> opt;
 	if (opt > 0 && opt <= 8) {
 		writeOpToFile(opt);
 	switch (opt)
@@ -324,10 +321,10 @@ void lineOperations(Line& curr)
 	}
 }
 
-Segment createSegment(bool writeId)
+Segment createSegment(bool writeId, std::istream& in)
 {
 	std::cout << "Creating Segment..." << '\n';
-	Point first(createPoint()), secound(createPoint());
+	Point first(createPoint(false, in)), secound(createPoint(false, in));
 	Segment obj(first, secound);
 	objArr[objCnt++] = new Segment(obj);
 	if (writeId)
@@ -337,15 +334,14 @@ Segment createSegment(bool writeId)
 	return obj;
 }
 
-void segmentOperations(Segment& curr)
+void segmentOperations(Segment& curr, std::istream& in)
 {
 	unsigned opt;
 	std::cout << "Avalable Segment operations: \n"
 		<< "1. Get length\n"
 		<< "2. Get middle Point\n"
 		<< "3. Check if Point lies on Segment\n";
-	std::cin.ignore();
-	std::cin >> opt;
+	in >> opt;
 	if (opt > 0 && opt <= 3) {
 		writeOpToFile(opt);
 	switch (opt)
@@ -363,7 +359,7 @@ void segmentOperations(Segment& curr)
 	}
 	case 3:
 	{
-		Point p(createPoint(false));
+		Point p(createPoint(false, in));
 		std::cout << (std::boolalpha) << curr.operator==(p) << '\n';
 		break;
 	}
@@ -373,7 +369,7 @@ void segmentOperations(Segment& curr)
 	}
 }
 
-Triangle createTriangle(bool writeId)
+Triangle createTriangle(bool writeId, std::istream& in)
 {
 	bool valid = false;
 	do
@@ -381,7 +377,7 @@ Triangle createTriangle(bool writeId)
 		try
 		{
 			std::cout << "Creating Triangle...\n";
-			Point p1(createPoint()), p2(createPoint()), p3(createPoint());
+			Point p1(createPoint(false, in)), p2(createPoint(false, in)), p3(createPoint(false, in));
 			Triangle t(p1, p2, p3);
 			objArr[objCnt++] = new Triangle(t);
 			if (writeId)
@@ -400,7 +396,7 @@ Triangle createTriangle(bool writeId)
 }
 
 
-void triangleOperations(Triangle& curr)
+void triangleOperations(Triangle& curr, std::istream& in)
 {
 	unsigned opt;
 	std::cout << "Avalable Triangle operations: \n"
@@ -411,8 +407,7 @@ void triangleOperations(Triangle& curr)
 		<< "5. Check if Point lies inside Triangle\n"
 		<< "6. Check if Point lies in Plane, but not inside Triangle\n"
 		<< "7. Check if Point lies on a Segment of Triangle \n";
-	std::cin.ignore();
-	std::cin >> opt;
+	in >> opt;
 	if (opt > 0 && opt <= 7) {
 		writeOpToFile(opt);
 	switch (opt)
@@ -469,19 +464,19 @@ void triangleOperations(Triangle& curr)
 	}
 	case 5:
 	{
-		Point p(createPoint(false));
+		Point p(createPoint(false, in));
 		std::cout << (std::boolalpha) << curr.operator<(p) << '\n';
 		break;
 	}
 	case 6:
 	{
-		Point p(createPoint(false));
+		Point p(createPoint(false, in));
 		std::cout << (std::boolalpha) << curr.operator>(p) << '\n';
 		break;
 	}
 	case 7:
 	{
-		Point p(createPoint(false));
+		Point p(createPoint(false, in));
 		std::cout << (std::boolalpha) << curr.operator==(p) << '\n';
 		break;
 	}
@@ -492,7 +487,7 @@ void triangleOperations(Triangle& curr)
 }
 
 
-Tetrahedron createTetrahedron(bool writeId)
+Tetrahedron createTetrahedron(bool writeId, std::istream& in)
 {
 	bool valid = false;
 	do
@@ -500,7 +495,7 @@ Tetrahedron createTetrahedron(bool writeId)
 		try
 		{
 			std::cout << "Creating Tetrahedron...\n";
-			Point p1(createPoint()), p2(createPoint()), p3(createPoint()), p4(createPoint());
+			Point p1(createPoint(false, in)), p2(createPoint(false, in)), p3(createPoint(false, in)), p4(createPoint(false, in));
 			Tetrahedron t(p1, p2, p3, p4);
 			objArr[objCnt++] = new Tetrahedron(t);
 			valid = true;
@@ -522,7 +517,7 @@ Tetrahedron createTetrahedron(bool writeId)
 	return Tetrahedron();
 }
 
-void tetrahedronOperations(Tetrahedron& curr)
+void tetrahedronOperations(Tetrahedron& curr, std::istream& in)
 {
 	unsigned opt;
 	std::cout << "Avalable Tetrahedron operations: \n"
@@ -531,8 +526,7 @@ void tetrahedronOperations(Tetrahedron& curr)
 		<< "3. Get surface area\n"
 		<< "4. Get volume\n"
 		<< "5. Check if point is on sides\n";
-	std::cin.ignore();
-	std::cin >> opt;
+	in >> opt;
 	if (opt > 0 && opt <= 5) {
 		writeOpToFile(opt);
 	switch (opt)
@@ -560,6 +554,48 @@ void tetrahedronOperations(Tetrahedron& curr)
 	default:
 		break;
 	}
+	}
+}
+
+void readFromFile()
+{
+	unsigned objId;
+	std::ifstream file("lastOp.txt");
+	file >> objId;
+	switch (objId)
+	{
+	case 1: {
+		Point p(createPoint(true, file));
+		pointOperations(p, file);
+		break;
+	}
+	case 2: {
+		Vector v(createVector(true, file));
+		vectorOperations(v, file);
+		break;
+	}
+	case 3: {
+		Line l(createLine(true, file));
+		lineOperations(l, file);
+		break;
+	}
+	case 4: {
+		Segment s(createSegment(true, file));
+		segmentOperations(s, file);
+		break;
+	}
+	case 5: {
+		Triangle t(createTriangle(true, file));
+		triangleOperations(t, file);
+		break;
+	}
+	case 6: {
+		Tetrahedron t(createTetrahedron(true, file));
+		tetrahedronOperations(t, file);
+		break;
+	}
+	default:
+		break;
 	}
 }
 

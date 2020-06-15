@@ -112,7 +112,7 @@ std::ostream& Line::ins(std::ostream& out) const
 
 std::ofstream& Line::ins(std::ofstream& fstream) const
 {
-	fstream << firstPoint << '\n'
-		<< secondPoint;
+	fstream << firstPoint << '\n';
+	fstream << secondPoint;
 	return fstream;
 }

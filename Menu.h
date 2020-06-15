@@ -12,18 +12,19 @@
 #include "TypeTrianglesEnum.h"
 
 int menu();
-Point createPoint(bool writeId = true);
-Vector createVector(bool writeId = true);
-Line createLine(bool writeId = true);
-Segment createSegment(bool writeId = true);
-Triangle createTriangle(bool writeId = true);
-Tetrahedron createTetrahedron(bool writeId = true);
-void pointOperations(Point&);
-void vectorOperations(Vector&);
-void lineOperations(Line&);
-void segmentOperations(Segment&);
-void triangleOperations(Triangle&);
-void tetrahedronOperations(Tetrahedron&);
+Point createPoint(bool writeId = true, std::istream& in = std::cin);
+Vector createVector(bool writeId = true, std::istream& in = std::cin);
+Line createLine(bool writeId = true, std::istream& in = std::cin);
+Segment createSegment(bool writeId = true, std::istream& in = std::cin);
+Triangle createTriangle(bool writeId = true, std::istream& in = std::cin);
+Tetrahedron createTetrahedron(bool writeId = true, std::istream& in = std::cin);
+void pointOperations(Point&, std::istream& in = std::cin);
+void vectorOperations(Vector&, std::istream& in = std::cin);
+void lineOperations(Line&, std::istream& in = std::cin);
+void segmentOperations(Segment&, std::istream& in = std::cin);
+void triangleOperations(Triangle&, std::istream& in = std::cin);
+void tetrahedronOperations(Tetrahedron&, std::istream& in = std::cin);
+void readFromFile();
 void writeObjToFile(Element*);
 void writeObjToFile(Element*, int id);
 void writeOpToFile(unsigned);

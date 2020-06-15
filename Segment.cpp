@@ -64,6 +64,6 @@ std::ostream& Segment::ins(std::ostream& out) const
 
 std::ofstream& Segment::ins(std::ofstream& fstream) const
 {
-	fstream << paramX << " " << paramY << " " << paramZ;
+	Line::ins(fstream);
 	return fstream;
 }
