@@ -243,8 +243,9 @@ void vectorOperations(Vector& curr, std::istream& in)
 Line createLine(bool writeId, std::istream& in)
 {
 	std::cout << "Creating Line... \n";
-	Point first(createPoint(writeId, in)), secound(createPoint(writeId, in));
-	Line obj(first, secound);
+	Point first(createPoint(writeId, in));
+	Vector secound(createVector(writeId, in));
+	Line obj(secound, first);
 	objArr[objCnt++] = new Line(obj);
 	if (writeId)
 		writeObjToFile(&obj, 3);
@@ -503,7 +504,7 @@ Tetrahedron createTetrahedron(bool writeId, std::istream& in)
 				writeObjToFile(&t, 6);
 			else
 				writeObjToFile(&t);
-			return Tetrahedron();
+			return t;
 		}
 		catch (const EqualPointException & ex)
 		{

@@ -91,7 +91,7 @@ bool Vector::isParallelTo(Vector* comp) const
 	double xRatio = x / comp->x;
 	double yRatio = y / comp->y;
 	double zRatio = z / comp->z;
-	if ((xRatio == yRatio) == zRatio) {
+	if (xRatio == yRatio && xRatio == zRatio) {
 		return true;
 	}
 	return false;
